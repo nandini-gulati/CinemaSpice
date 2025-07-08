@@ -6,12 +6,21 @@
   "scripts": {
     "dev": "npx vite --port 3000",
     "build": "npx vite build",
-    "start": "npx vite preview --port 3000"
+    "start": "npx vite preview --port 3000",
+    "react-scripts": "^5.0.1"
   },
-  "keywords": ["movie", "booking", "cinema", "entertainment"],
+  "keywords": [
+    "movie",
+    "booking",
+    "cinema",
+    "entertainment"
+  ],
   "author": "CinemaSpice",
   "license": "MIT",
   "devDependencies": {
     "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "react-scripts": "^5.0.1"
   }
 }
