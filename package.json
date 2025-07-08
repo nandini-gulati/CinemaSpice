@@ -1,26 +1,17 @@
 {
-  "name": "cinemaspice",
+  "name": "myshowz-movie-booking",
   "version": "1.0.0",
   "description": "Movie booking website with age restrictions",
   "main": "index.html",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "npx vite --port 3000",
+    "build": "npx vite build",
+    "start": "npx vite preview --port 3000"
   },
-  "keywords": [
-    "movie",
-    "booking",
-    "cinema",
-    "entertainment"
-  ],
-  "author": "CinemaSpice",
+  "keywords": ["movie", "booking", "cinema", "entertainment"],
+  "author": "MyShowz",
   "license": "MIT",
   "devDependencies": {
     "vite": "^5.0.0"
-  },
-  "dependencies": {
-    "react-scripts": "^5.0.1"
   }
 }
