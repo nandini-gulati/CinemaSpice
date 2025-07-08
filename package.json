@@ -1,0 +1,17 @@
+{
+  "name": "cinemaspice",
+  "version": "1.0.0",
+  "description": "Movie booking website with age restrictions",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx vite --port 3000",
+    "build": "npx vite build",
+    "start": "npx vite preview --port 3000"
+  },
+  "keywords": ["movie", "booking", "cinema", "entertainment"],
+  "author": "CinemaSpice",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}
