@@ -1,5 +1,5 @@
 {
-  "name": "myshowz-movie-booking",
+  "name": "cinemaspice",
   "version": "1.0.0",
   "description": "Movie booking website with age restrictions",
   "main": "index.html",
@@ -9,7 +9,7 @@
     "start": "npx vite preview --port 3000"
   },
   "keywords": ["movie", "booking", "cinema", "entertainment"],
-  "author": "MyShowz",
+  "author": "CinemaSpice",
   "license": "MIT",
   "devDependencies": {
     "vite": "^5.0.0"
