@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CinemaSpice - Movie Booking Platform</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dark-theme">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.png" alt="CinemaSpice Logo" class="logo-image">
+                <h2>CinemaSpice</h2>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showSection('home')">Home</a>
+                </li>
+                <li class="nav-item adult-only" id="movies-nav" style="display: none;">
+                    <a href="#" class="nav-link" onclick="showSection('movies')">Movies</a>
+                </li>
+                <li class="nav-item" id="kids-zone-nav" style="display: none;">
+                    <a href="#" class="nav-link" onclick="showSection('kids-zone')">Kids Zone</a>
+                </li>
+                <li class="nav-item adult-only" id="bookings-nav" style="display: none;">
+                    <a href="#" class="nav-link" onclick="showSection('bookings')">My Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                        <i class="fas fa-sun" id="theme-icon"></i>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link auth-link" id="auth-link" onclick="showSection('auth')">
+                        <i class="fas fa-user"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Authentication Section -->
+        <section id="auth" class="auth-section">
+            <div class="auth-container">
+                <div class="auth-split">
+                    <!-- Left Side - Sign In -->
+                    <div class="auth-left">
+                        <div class="auth-card">
+                            <div class="auth-logo">
+                                <img src="images/logo.png" alt="CinemaSpice Logo" class="auth-logo-image">
+                                <h2>CinemaSpice</h2>
+                            </div>
+                            <h2 id="auth-title">Sign in</h2>
+                            <div class="social-login">
+                                <button class="social-btn facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </button>
+                                <button class="social-btn google">
+                                    <i class="fab fa-google-plus-g"></i>
+                                </button>
+                                <button class="social-btn linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </button>
+                            </div>
+                            <p class="social-divider">or use your account</p>
+                            <form id="auth-form">
+                                <div class="input-group" id="name-group" style="display: none;">
+                                    <input type="text" id="name" placeholder="Full Name" required>
+                                </div>
+                                <div class="input-group">
+                                    <input type="email" id="email" placeholder="Email" required>
+                                </div>
+                                <div class="input-group" id="age-group" style="display: none;">
+                                    <input type="number" id="age" placeholder="Age" min="1" max="120" required>
+                                </div>
+                                <div class="input-group">
+                                    <input type="password" id="password" placeholder="Password" required>
+                                </div>
+                                <a href="#" class="forgot-password">Forgot your password?</a>
+                                <button type="submit" class="auth-btn" id="auth-submit-btn">SIGN IN</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Side - Welcome -->
+                    <div class="auth-right">
+                        <div class="welcome-content">
+                            <h2 id="welcome-title">Hello, Friend!</h2>
+                            <p id="welcome-text">Register and book your tickets now!!</p>
+                            <button class="toggle-auth-btn" id="toggle-auth" onclick="toggleAuthMode()">SIGN UP</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home Section -->
+        <section id="home" class="home-section" style="display: none;">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 id="hero-title">Welcome to CinemaSpice</h1>
+                    <p id="hero-subtitle">Your premier destination for movie entertainment</p>
+                    <div class="hero-buttons" id="hero-buttons">
+                        <button class="btn btn-primary" onclick="showSection('movies')">Browse Movies</button>
+                        <button class="btn btn-secondary" onclick="showSection('kids-zone')">Kids Zone</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="images/hero.png" alt="Cinema">
+                </div>
+            </div>
+        </section>
+
+        <!-- Movies Section -->
+        <section id="movies" class="movies-section" style="display: none;">
+            <div class="container">
+                <h2>All Movies</h2>
+                <div class="movie-filters">
+                    <button class="filter-btn active" onclick="filterMovies('all')">All</button>
+                    <button class="filter-btn" onclick="filterMovies('action')">Action</button>
+                    <button class="filter-btn" onclick="filterMovies('adventure')">Adventure</button>
+                    <button class="filter-btn" onclick="filterMovies('animation')">Animation</button>
+                    <button class="filter-btn" onclick="filterMovies('anime')">Anime</button>
+                    <button class="filter-btn" onclick="filterMovies('comedy')">Comedy</button>
+                    <button class="filter-btn" onclick="filterMovies('drama')">Drama</button>
+                    <button class="filter-btn" onclick="filterMovies('family')">Family</button>
+                    <button class="filter-btn" onclick="filterMovies('fantasy')">Fantasy</button>
+                    <button class="filter-btn" onclick="filterMovies('hindi')">Hindi</button>
+                    <button class="filter-btn" onclick="filterMovies('horror')">Horror</button>
+                    <button class="filter-btn" onclick="filterMovies('kids')">Kids</button>
+                    <button class="filter-btn" onclick="filterMovies('romance')">Romance</button>
+                    <button class="filter-btn" onclick="filterMovies('sci-fi')">Sci-Fi</button>
+                    <button class="filter-btn" onclick="filterMovies('thriller')">Thriller</button>
+                </div>
+                <div class="movies-grid" id="movies-grid"></div>
+            </div>
+        </section>
+
+        <!-- Kids Zone Section -->
+        <section id="kids-zone" class="kids-zone-section" style="display: none;">
+            <div class="container">
+                <div class="kids-zone-header">
+                    <h2>🎈 Kids Zone 🎈</h2>
+                    <p>Fun and safe movies for our young viewers!</p>
+                </div>
+                <div class="movies-grid" id="kids-movies-grid"></div>
+            </div>
+        </section>
+
+        <!-- Bookings Section -->
+        <section id="bookings" class="bookings-section" style="display: none;">
+            <div class="container">
+                <h2>My Bookings</h2>
+                <div class="bookings-list" id="bookings-list">
+                    <div class="no-bookings">
+                        <p>No bookings yet. Start exploring movies!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Movie Modal -->
+    <div id="movie-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div class="modal-body" id="modal-body">
+                <!-- Movie details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBookingModal()">&times;</span>
+            <div class="modal-body" id="booking-modal-body">
+                <!-- Booking details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Age Restriction Modal -->
+    <div id="age-restriction-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="restriction-message">
+                    <h3>🚫 Age Restricted Content</h3>
+                    <p>Sorry! This movie is rated for viewers 18 and above. Please explore our Kids Zone for age-appropriate content.</p>
+                    <button class="btn btn-primary" onclick="closeAgeRestrictionModal()">Go to Kids Zone</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Restriction Modal -->
+    <div id="booking-restriction-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="restriction-message">
+                    <h3>🎫 Booking Restricted</h3>
+                    <p>Ticket booking is only available for users 18 and above. You can still enjoy movies in our Kids Zone!</p>
+                    <button class="btn btn-primary" onclick="closeBookingRestrictionModal()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/movies.js"></script>
+    <script src="scripts/booking.js"></script>
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
