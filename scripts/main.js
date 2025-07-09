@@ -2,6 +2,15 @@
 let currentSection = 'auth';
 
 function initApp() {
+    // Ensure userData is available
+    if (typeof window.userData === 'undefined') {
+        window.userData = {
+            isLoggedIn: false,
+            user: null,
+            bookings: []
+        };
+    }
+    
     // Set up navigation
     setupNavigation();
     

@@ -223,6 +223,14 @@
     </div>
 
     <script src="scripts/data.js"></script>
+    <script>
+        // Ensure global userData is available before other scripts load
+        window.userData = window.userData || {
+            isLoggedIn: false,
+            user: null,
+            bookings: []
+        };
+    </script>
     <script src="scripts/auth.js"></script>
     <script src="scripts/movies.js"></script>
     <script src="scripts/booking.js"></script>
@@ -230,3 +238,4 @@
     <script src="scripts/main.js"></script>
 </body>
 </html>
+

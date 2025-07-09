@@ -14,11 +14,20 @@ function loadMovies() {
     const moviesGrid = document.getElementById('movies-grid');
     if (!moviesGrid) return;
     
+    // Ensure userData is available
+    if (typeof window.userData === 'undefined') {
+        window.userData = {
+            isLoggedIn: false,
+            user: null,
+            bookings: []
+        };
+    }
+    
     // Get movies based on current filter
-    currentMovies = getMoviesByGenre(currentFilter);
+    currentMovies = window.getMoviesByGenre ? window.getMoviesByGenre(currentFilter) : [];
     
     // Filter based on user age if logged in
-    if (userData.isLoggedIn && !userData.user.isAdult) {
+    if (window.userData.isLoggedIn && !window.userData.user.isAdult) {
         currentMovies = currentMovies.filter(movie => movie.isKidsMovie);
     }
     
@@ -372,9 +381,9 @@ function selectShowtime(showtimeId) {
     };
     
     // Save booking
-    const existingBookings = JSON.parse(localStorage.getItem('myshowz_bookings') || '[]');
+    const existingBookings = JSON.parse(localStorage.getItem('cinemaspice_bookings') || '[]');
     existingBookings.push(booking);
-    localStorage.setItem('myshowz_bookings', JSON.stringify(existingBookings));
+    localStorage.setItem('cinemaspice_bookings', JSON.stringify(existingBookings));
     
     // Update user data
     userData.bookings = existingBookings;

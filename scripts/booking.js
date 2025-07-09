@@ -9,13 +9,22 @@ let mealTotal = 0;
 let currentMovie = null;
 
 function showBookingModal(movie) {
-    if (!userData.isLoggedIn) {
+    // Ensure userData is available
+    if (typeof window.userData === 'undefined') {
+        window.userData = {
+            isLoggedIn: false,
+            user: null,
+            bookings: []
+        };
+    }
+    
+    if (!window.userData.isLoggedIn) {
         showToast('Please login to book tickets', 'warning');
         showSection('auth');
         return;
     }
     
-    if (!userData.user.isAdult) {
+    if (!window.userData.user.isAdult) {
         showBookingRestrictionModal();
         return;
     }
@@ -527,9 +536,9 @@ function confirmBooking() {
     
     setTimeout(() => {
         // Save booking
-        const existingBookings = JSON.parse(localStorage.getItem('myshowz_bookings') || '[]');
+        const existingBookings = JSON.parse(localStorage.getItem('cinemaspice_bookings') || '[]');
         existingBookings.push(booking);
-        localStorage.setItem('myshowz_bookings', JSON.stringify(existingBookings));
+        localStorage.setItem('cinemaspice_bookings', JSON.stringify(existingBookings));
         
         // Update available seats
         selectedShowtime.availableSeats -= selectedSeats.length;
