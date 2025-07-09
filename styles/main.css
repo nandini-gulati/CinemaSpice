@@ -1,33 +1,33 @@
 :root {
     /* Dark Theme Colors */
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #1a1a1a;
-    --bg-tertiary: #2d2d2d;
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.8);
-    --text-muted: rgba(255, 255, 255, 0.6);
-    --accent-primary: #e50914;
-    --accent-secondary: #b20710;
-    --accent-gradient: linear-gradient(135deg, #e50914 0%, #b20710 100%);
-    --border-color: rgba(255, 255, 255, 0.1);
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --overlay-bg: rgba(0, 0, 0, 0.8);
+    --bg-primary: #0a0a0a !important;
+    --bg-secondary: #1a1a1a !important;
+    --bg-tertiary: #2d2d2d !important;
+    --text-primary: #ffffff !important;
+    --text-secondary: rgba(255, 255, 255, 0.8) !important;
+    --text-muted: rgba(255, 255, 255, 0.6) !important;
+    --accent-primary: #e50914 !important;
+    --accent-secondary: #b20710 !important;
+    --accent-gradient: linear-gradient(135deg, #e50914 0%, #b20710 100%) !important;
+    --border-color: rgba(255, 255, 255, 0.1) !important;
+    --shadow-color: rgba(0, 0, 0, 0.3) !important;
+    --overlay-bg: rgba(0, 0, 0, 0.8) !important;
 }
 
 .light-theme {
     /* Light Theme Colors */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --bg-tertiary: #e9ecef;
-    --text-primary: #212529;
-    --text-secondary: #495057;
-    --text-muted: #6c757d;
-    --accent-primary: #e50914;
-    --accent-secondary: #b20710;
-    --accent-gradient: linear-gradient(135deg, #e50914 0%, #b20710 100%);
-    --border-color: rgba(0, 0, 0, 0.1);
-    --shadow-color: rgba(0, 0, 0, 0.15);
-    --overlay-bg: rgba(255, 255, 255, 0.95);
+    --bg-primary: #ffffff !important;
+    --bg-secondary: #f8f9fa !important;
+    --bg-tertiary: #e9ecef !important;
+    --text-primary: #212529 !important;
+    --text-secondary: #495057 !important;
+    --text-muted: #6c757d !important;
+    --accent-primary: #e50914 !important;
+    --accent-secondary: #b20710 !important;
+    --accent-gradient: linear-gradient(135deg, #e50914 0%, #b20710 100%) !important;
+    --border-color: rgba(0, 0, 0, 0.1) !important;
+    --shadow-color: rgba(0, 0, 0, 0.15) !important;
+    --overlay-bg: rgba(255, 255, 255, 0.95) !important;
 }
 
 * {
@@ -38,10 +38,26 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
     line-height: 1.6;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease !important;
+    min-height: 100vh;
+}
+
+/* Ensure styles load properly on all environments */
+html {
+    background-color: #0a0a0a !important;
+}
+
+body.dark-theme {
+    background-color: #0a0a0a !important;
+    color: #ffffff !important;
+}
+
+body.light-theme {
+    background-color: #ffffff !important;
+    color: #212529 !important;
 }
 
 .container {
@@ -166,19 +182,19 @@ body {
     min-height: calc(100vh - 80px);
 }
 
-
+/* Auth Section - Perfectly Centered */
 .auth-section {
-    top: 10px;
+    position: fixed;
+    top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     z-index: 10;
     padding: 2rem;
-    box-sizing: border-box;
 }
 
 .auth-container {
@@ -187,9 +203,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.1);
-    padding: 2rem;
 }
 
 .auth-split {
