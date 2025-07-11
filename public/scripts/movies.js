@@ -50,7 +50,7 @@ function loadKidsMovies() {
     const kidsMoviesGrid = document.getElementById('kids-movies-grid');
     if (!kidsMoviesGrid) return;
     
-    const kidsMovies = getKidsMovies();
+    const kidsMovies = window.getKidsMovies ? window.getKidsMovies() : [];
     
     // Clear existing content
     kidsMoviesGrid.innerHTML = '';
@@ -73,7 +73,7 @@ function createMovieCard(movie, isKidsZone = false) {
     movieCard.setAttribute('data-movie-id', movie.id);
     
     // Check if user can access this movie
-    const canAccess = !userData.isLoggedIn || userData.user.isAdult || movie.isKidsMovie;
+    const canAccess = !window.userData.isLoggedIn || window.userData.user.isAdult || movie.isKidsMovie;
     
     movieCard.innerHTML = `
         <div class="movie-poster-container">
@@ -85,7 +85,7 @@ function createMovieCard(movie, isKidsZone = false) {
             <h3 class="movie-title">${movie.title}</h3>
             <div class="movie-genre">${movie.genre.join(', ')}</div>
             <div class="movie-rating">
-                <span class="stars">${generateStars(movie.rating)}</span>
+                <span class="stars">${window.generateStars ? window.generateStars(movie.rating) : '★★★★☆'}</span>
                 <span>${movie.rating}/10</span>
             </div>
             <p class="movie-description">${movie.description}</p>
@@ -93,10 +93,10 @@ function createMovieCard(movie, isKidsZone = false) {
                 <button class="btn-watch" onclick="watchMovie(${movie.id})" ${!canAccess ? 'disabled' : ''}>
                     ${canAccess ? 'Watch' : 'Restricted'}
                 </button>
-                <button class="btn-book ${!canAccess || (!userData.isLoggedIn || !userData.user.isAdult) ? 'btn-disabled' : ''}" 
+                <button class="btn-book ${!canAccess || (!window.userData.isLoggedIn || !window.userData.user.isAdult) ? 'btn-disabled' : ''}" 
                         onclick="bookMovie(${movie.id})"
-                        ${!canAccess || (!userData.isLoggedIn || !userData.user.isAdult) ? 'disabled' : ''}>
-                    ${(!userData.isLoggedIn || !userData.user.isAdult) ? 'Book (18+)' : 'Book Tickets'}
+                        ${!canAccess || (!window.userData.isLoggedIn || !window.userData.user.isAdult) ? 'disabled' : ''}>
+                    ${(!window.userData.isLoggedIn || !window.userData.user.isAdult) ? 'Book (18+)' : 'Book Tickets'}
                 </button>
             </div>
         </div>
@@ -132,11 +132,11 @@ function filterMovies(genre) {
 }
 
 function watchMovie(movieId) {
-    const movie = getMovieById(movieId);
+    const movie = window.getMovieById ? window.getMovieById(movieId) : null;
     if (!movie) return;
     
     // Check if user can access this movie
-    if (userData.isLoggedIn && !userData.user.isAdult && !movie.isKidsMovie) {
+    if (window.userData.isLoggedIn && !window.userData.user.isAdult && !movie.isKidsMovie) {
         showAgeRestrictionModal();
         return;
     }
@@ -147,36 +147,38 @@ function watchMovie(movieId) {
 
 function bookMovie(movieId) {
     // Check if user is logged in
-    if (!userData.isLoggedIn) {
-        showToast('Please login to book tickets', 'warning');
-        showSection('auth');
+    if (!window.userData.isLoggedIn) {
+        window.showToast && window.showToast('Please login to book tickets', 'warning');
+        window.showSection && window.showSection('auth');
         return;
     }
     
     // Check if user is adult
-    if (!userData.user.isAdult) {
+    if (!window.userData.user.isAdult) {
         showBookingRestrictionModal();
         return;
     }
     
-    const movie = getMovieById(movieId);
+    const movie = window.getMovieById ? window.getMovieById(movieId) : null;
     if (!movie) return;
     
     // Check if this is an adult movie
     if (!movie.isKidsMovie || movie.ageRating === 'R' || movie.ageRating === 'PG-13') {
-        if (!userData.user.isAdult) {
+        if (!window.userData.user.isAdult) {
             showBookingRestrictionModal();
             return;
         }
     }
     
     // Show booking modal
-    showBookingModal(movie);
+    window.showBookingModal && window.showBookingModal(movie);
 }
 
 function showMovieModal(movie) {
     const modal = document.getElementById('movie-modal');
     const modalBody = document.getElementById('modal-body');
+    
+    if (!modal || !modalBody) return;
     
     modalBody.innerHTML = `
         <div class="movie-modal-content">
@@ -204,7 +206,7 @@ function showMovieModal(movie) {
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Release Date</span>
-                        <span class="detail-value">${formatDate(movie.releaseDate)}</span>
+                        <span class="detail-value">${window.formatDate ? window.formatDate(movie.releaseDate) : movie.releaseDate}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Category</span>
@@ -214,12 +216,12 @@ function showMovieModal(movie) {
                 <p>${movie.description}</p>
                 <div class="modal-actions">
                     <button class="btn btn-primary" onclick="closeModal()">Close</button>
-                    <button class="btn btn-secondary" onclick="playTrailer(${movie.id})">
+                    <button class="btn btn-secondary" onclick="window.playTrailer && window.playTrailer(${movie.id})">
                         <i class="fas fa-play"></i> Watch Trailer
                     </button>
                     <button class="btn btn-secondary" onclick="bookMovie(${movie.id})" 
-                            ${!userData.isLoggedIn || !userData.user.isAdult ? 'disabled' : ''}>
-                        ${!userData.isLoggedIn || !userData.user.isAdult ? 'Book (18+)' : 'Book Tickets'}
+                            ${!window.userData.isLoggedIn || !window.userData.user.isAdult ? 'disabled' : ''}>
+                        ${!window.userData.isLoggedIn || !window.userData.user.isAdult ? 'Book (18+)' : 'Book Tickets'}
                     </button>
                 </div>
             </div>
@@ -233,7 +235,9 @@ function showBookingModal(movie) {
     const modal = document.getElementById('movie-modal');
     const modalBody = document.getElementById('modal-body');
     
-    const showTimes = getShowTimesByMovieId(movie.id);
+    if (!modal || !modalBody) return;
+    
+    const showTimes = window.getShowTimesByMovieId ? window.getShowTimesByMovieId(movie.id) : [];
     
     modalBody.innerHTML = `
         <div class="booking-modal-content">
@@ -252,10 +256,10 @@ function showBookingModal(movie) {
                 <div class="showtimes-grid">
                     ${showTimes.map(showTime => `
                         <div class="showtime-card" onclick="selectShowtime(${showTime.id})">
-                            <div class="showtime-theater">${showTime.theater}</div>
-                            <div class="showtime-date">${formatDate(showTime.date)}</div>
+                            <div class="showtime-theater">${showTime.theater || 'Cinema Hall'}</div>
+                            <div class="showtime-date">${window.formatDate ? window.formatDate(showTime.date) : showTime.date}</div>
                             <div class="showtime-time">${showTime.time}</div>
-                            <div class="showtime-price">$${showTime.price}</div>
+                            <div class="showtime-price">${window.formatIndianPrice ? window.formatIndianPrice(showTime.price) : '₹' + showTime.price}</div>
                             <div class="showtime-seats">${showTime.availableSeats} seats available</div>
                         </div>
                     `).join('')}
@@ -358,19 +362,20 @@ function showBookingModal(movie) {
 }
 
 function selectShowtime(showtimeId) {
-    const showtime = showTimesData.find(st => st.id === showtimeId);
+    const showtime = window.showTimesData ? window.showTimesData.find(st => st.id === showtimeId) : null;
     if (!showtime) return;
     
-    const movie = getMovieById(showtime.movieId);
+    const movie = window.getMovieById ? window.getMovieById(showtime.movieId) : null;
+    if (!movie) return;
     
     // Create booking
     const booking = {
         id: Date.now().toString(),
-        userId: userData.user.id,
+        userId: window.userData.user.id,
         movieId: movie.id,
         showtimeId: showtimeId,
         movieTitle: movie.title,
-        theater: showtime.theater,
+        theater: showtime.theater || 'Cinema Hall',
         date: showtime.date,
         time: showtime.time,
         price: showtime.price,
@@ -381,46 +386,61 @@ function selectShowtime(showtimeId) {
     };
     
     // Save booking
-    const existingBookings = JSON.parse(localStorage.getItem('cinemaspice_bookings') || '[]');
-    existingBookings.push(booking);
-    localStorage.setItem('cinemaspice_bookings', JSON.stringify(existingBookings));
-    
-    // Update user data
-    userData.bookings = existingBookings;
-    
-    // Show success message
-    showToast('Booking confirmed successfully!', 'success');
-    
-    // Close modal
-    closeModal();
-    
-    // Show bookings section
-    showSection('bookings');
+    try {
+        const existingBookings = JSON.parse(localStorage.getItem('cinemaspice_bookings') || '[]');
+        existingBookings.push(booking);
+        localStorage.setItem('cinemaspice_bookings', JSON.stringify(existingBookings));
+        
+        // Update user data
+        window.userData.bookings = existingBookings;
+        
+        // Show success message
+        window.showToast && window.showToast('Booking confirmed successfully!', 'success');
+        
+        // Close modal
+        closeModal();
+        
+        // Show bookings section
+        setTimeout(() => {
+            window.showSection && window.showSection('bookings');
+        }, 1000);
+    } catch (error) {
+        console.error('Error saving booking:', error);
+        window.showToast && window.showToast('Error saving booking', 'error');
+    }
 }
 
 function showAgeRestrictionModal() {
     const modal = document.getElementById('age-restriction-modal');
-    modal.style.display = 'block';
+    if (modal) {
+        modal.style.display = 'block';
+    }
 }
 
 function closeAgeRestrictionModal() {
     const modal = document.getElementById('age-restriction-modal');
-    modal.style.display = 'none';
+    if (modal) {
+        modal.style.display = 'none';
+    }
     
     // Navigate to kids zone if user is logged in and is a minor
-    if (userData.isLoggedIn && !userData.user.isAdult) {
-        showSection('kids-zone');
+    if (window.userData.isLoggedIn && !window.userData.user.isAdult) {
+        window.showSection && window.showSection('kids-zone');
     }
 }
 
 function showBookingRestrictionModal() {
     const modal = document.getElementById('booking-restriction-modal');
-    modal.style.display = 'block';
+    if (modal) {
+        modal.style.display = 'block';
+    }
 }
 
 function closeBookingRestrictionModal() {
     const modal = document.getElementById('booking-restriction-modal');
-    modal.style.display = 'none';
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 function closeModal() {
@@ -439,7 +459,9 @@ function closeModal() {
 }
 
 // Initialize movies when DOM is loaded
-document.addEventListener('DOMContentLoaded', initMovies);
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(initMovies, 200);
+});
 
 // Export functions for global use
 window.filterMovies = filterMovies;

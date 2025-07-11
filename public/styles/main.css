@@ -194,7 +194,8 @@ body.light-theme {
     justify-content: center;
     background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     z-index: 10;
-    padding: 2rem;
+    padding: 3rem;
+    overflow-y: auto;
 }
 
 .auth-container {
@@ -203,6 +204,9 @@ body.light-theme {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: fit-content;
+    margin: 0 auto;
+    padding: 2rem 0;
 }
 
 .auth-split {
@@ -215,12 +219,13 @@ body.light-theme {
     backdrop-filter: blur(10px);
     width: 100%;
     max-width: 900px;
-    min-height: 600px;
+    min-height: 500px;
     border: 1px solid var(--border-color);
+    margin: 0 auto;
 }
 
 .auth-left {
-    padding: 3rem 2rem;
+    padding: 2rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -231,7 +236,7 @@ body.light-theme {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 2rem;
+    padding: 2rem 2rem;
     text-align: center;
 }
 

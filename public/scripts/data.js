@@ -1276,7 +1276,7 @@ function showToast(message, type = 'info') {
 
 // Export data for use in other scripts
 window.moviesData = moviesData;
-window.userData = userData;
+window.userData = window.userData;
 window.showTimesData = showTimesData;
 window.citiesData = citiesData;
 window.theatresData = theatresData;

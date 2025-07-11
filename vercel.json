@@ -6,7 +6,7 @@
   },
   "headers": [
     {
-      "source": "/styles/(.*)",
+      "source": "/public/styles/(.*)",
       "headers": [
         {
           "key": "Content-Type",
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "source": "/scripts/(.*)",
+      "source": "/public/scripts/(.*)",
       "headers": [
         {
           "key": "Content-Type",
@@ -41,10 +41,6 @@
       ]
     }
   ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }

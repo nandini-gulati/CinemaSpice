@@ -6,9 +6,9 @@
     <title>CinemaSpice - Movie Booking Platform</title>
     <link rel="icon" type="image/x-icon" href="/images/logo.png">
     <link rel="apple-touch-icon" href="/images/logo.png">
-    <link rel="stylesheet" href="./styles/main.css" type="text/css">
-    <link rel="stylesheet" href="./styles/components.css" type="text/css">
-    <link rel="stylesheet" href="./styles/responsive.css" type="text/css">
+    <link rel="stylesheet" href="/styles/main.css" type="text/css">
+    <link rel="stylesheet" href="/styles/components.css" type="text/css">
+    <link rel="stylesheet" href="/styles/responsive.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -81,16 +81,16 @@
                             <p class="social-divider">or use your account</p>
                             <form id="auth-form">
                                 <div class="input-group" id="name-group" style="display: none;">
-                                    <input type="text" id="name" placeholder="Full Name" required>
+                                    <input type="text" id="name" placeholder="Full Name">
                                 </div>
                                 <div class="input-group">
-                                    <input type="email" id="email" placeholder="Email" required>
+                                    <input type="email" id="email" placeholder="Email" required autocomplete="email">
                                 </div>
                                 <div class="input-group" id="age-group" style="display: none;">
-                                    <input type="number" id="age" placeholder="Age" min="1" max="120" required>
+                                    <input type="number" id="age" placeholder="Age" min="1" max="120">
                                 </div>
                                 <div class="input-group">
-                                    <input type="password" id="password" placeholder="Password" required>
+                                    <input type="password" id="password" placeholder="Password" required autocomplete="current-password">
                                 </div>
                                 <a href="#" class="forgot-password">Forgot your password?</a>
                                 <button type="submit" class="auth-btn" id="auth-submit-btn">SIGN IN</button>
@@ -138,8 +138,8 @@
                     <button class="filter-btn" onclick="filterMovies('animation')">Animation</button>
                     <button class="filter-btn" onclick="filterMovies('anime')">Anime</button>
                     <button class="filter-btn" onclick="filterMovies('comedy')">Comedy</button>
+                    <button class="filter-btn" onclick="filterMovies('crime')">Crime</button>
                     <button class="filter-btn" onclick="filterMovies('drama')">Drama</button>
-                    <button class="filter-btn" onclick="filterMovies('family')">Family</button>
                     <button class="filter-btn" onclick="filterMovies('fantasy')">Fantasy</button>
                     <button class="filter-btn" onclick="filterMovies('hindi')">Hindi</button>
                     <button class="filter-btn" onclick="filterMovies('horror')">Horror</button>
@@ -222,7 +222,7 @@
         </div>
     </div>
 
-    <script src="scripts/data.js"></script>
+    <script src="/scripts/data.js"></script>
     <script>
         // Ensure global userData is available before other scripts load
         window.userData = window.userData || {
@@ -231,10 +231,12 @@
             bookings: []
         };
     </script>
-    <script src="scripts/auth.js"></script>
-    <script src="scripts/movies.js"></script>
-    <script src="scripts/booking.js"></script>
-    <script src="scripts/theme.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="/scripts/auth.js"></script>
+    <script src="/scripts/movies.js"></script>
+    <script src="/scripts/booking.js"></script>
+    <script src="/scripts/theme.js"></script>
+    <script src="/scripts/main.js"></script>
 </body>
 </html>
+
+
